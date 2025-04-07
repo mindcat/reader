@@ -136,7 +136,7 @@ struct WorksView: View {
      */
 
     let stub2 = WorkStub(work_id: 39945543)
-    // stub2.stub_loaded = true
+    stub2.stub_loaded = true
     context.insert(stub2)
 
     /*
@@ -147,7 +147,7 @@ struct WorksView: View {
      */
 
     let stub4 = WorkStub(work_id: 64079383)
-    // stub4.stub_loaded = true
+    stub4.stub_loaded = true
     context.insert(stub4)
 
     return WorksView()

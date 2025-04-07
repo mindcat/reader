@@ -32,13 +32,19 @@ Unofficial [AO3](https://archiveofourown.org/) reader, aiming to give an iOS-nat
 - Series support
     - Can view the series a work is a part of from the preview sheet
     - Can add works from the series to your list from the series view
+- Basic bookmark support
+    - Requires you to be logged in to work
+    - Can view single page of your bookmarks from the account view
+        - Need to add bookmark filters/search
+    - Bookmark button always present on work preview
+        - Checking the bookmark status requires extra calls with a probably slow UI because it is account dependant
 
 ## On The List
 
 - Comments support (this seems the hardest/furthest out for me)
     - May require request throttling and maybe some form of persistence to avoid server strain while retreiving
 - More AO3 account features
-    - Bookmarks, comments, history, etc.
+    - Comments, history, etc.
     - Ideally persist user info for UX, but requires safe credentials management so ??
 - Custom themes (the whole app is hardcoded to the default iOS dark theme)
 - Alternate font choices

@@ -14,6 +14,7 @@ struct AccountView: View {
     @State private var password: String = ""
     @State private var loading: Bool = false
     @State private var did_precheck: Bool = false
+    @State private var current_user: String = ""
     @Binding var logged_in: Bool
     
     func check() async {
@@ -42,8 +43,17 @@ struct AccountView: View {
             let logged = try doc.select("body.logged-in")
             if logged.count > 0 {
                 logged_in = true
+                
+                // set current username
+                let prefix = "/users/"
+                if let dropdown = try doc.select("#header li.dropdown > a").first() {
+                    var current_name = try dropdown.attr("href")
+                    current_name.trimPrefix(prefix)
+                    current_user = current_name
+                }
             } else {
                 logged_in = false
+                current_user = ""
             }
             username = ""
             password = ""
@@ -104,6 +114,14 @@ struct AccountView: View {
                         logged_in = true
                         username = ""
                         password = ""
+                        
+                        // set current username
+                        let prefix = "/users/"
+                        if let dropdown = try doc.select("#header li.dropdown > a").first() {
+                            var current_name = try dropdown.attr("href")
+                            current_name.trimPrefix(prefix)
+                            current_user = current_name
+                        }
                     }
                 } catch {
                     print(error)
@@ -120,7 +138,7 @@ struct AccountView: View {
         NavigationStack {
             VStack {
                 if !logged_in {
-                    if !loading {
+                    if !loading { // not logged in, not loading
                         GroupBox {
                             TextField("Username:", text: $username)
                                 .textFieldStyle(.roundedBorder)
@@ -140,7 +158,8 @@ struct AccountView: View {
                             Label("Log In", systemImage: "person.crop.circle")
                         }
                         .padding()
-                    } else {
+                        Spacer()
+                    } else { // not logged in, but loading
                         GroupBox {
                             ProgressView()
                                 .padding()
@@ -148,10 +167,11 @@ struct AccountView: View {
                             Label("Log In", systemImage: "person.crop.circle")
                         }
                         .padding()
+                        Spacer()
                     }
-                } else {
+                } else { // logged in
                     GroupBox {
-                        Text("Logged In!")
+                        Text("Logged in as: \(current_user)")
                             .padding()
                         Button("Log Out") {
                             Task {
@@ -163,6 +183,18 @@ struct AccountView: View {
                         Label("Log In", systemImage: "person.crop.circle")
                     }
                     .padding()
+                    List {
+                        NavigationLink {
+                            BookmarksView(current_user: $current_user)
+                        } label: {
+                            Text("Bookmarks")
+                        }
+                        NavigationLink {
+                            Text("History View")
+                        } label: {
+                            Text("History")
+                        }
+                    }
                 }
             }
             .navigationTitle("Account")
