@@ -94,7 +94,7 @@ struct SearchQueryView: View {
                     NavigationLink("Fandoms: (\(search_query.fandom_tags.count))") {
                         TagSearch(
                             selected_tags: $search_query.fandom_tags,
-                            search_text: $search_query.fandom_search,
+                            // search_text: $search_query.fandom_search,
                             search_type: "fandom"
                         )
                         .navigationTitle("Fandoms:")
@@ -124,7 +124,7 @@ struct SearchQueryView: View {
                     NavigationLink("Characters: (\(search_query.character_tags.count))") {
                         TagSearch(
                             selected_tags: $search_query.character_tags,
-                            search_text: $search_query.character_search,
+                            // search_text: $search_query.character_search,
                             search_type: "character"
                         )
                         .navigationTitle("Characters:")
@@ -133,7 +133,7 @@ struct SearchQueryView: View {
                     NavigationLink("Relationships: (\(search_query.relationship_tags.count))") {
                         TagSearch(
                             selected_tags: $search_query.relationship_tags,
-                            search_text: $search_query.relationship_search,
+                            // search_text: $search_query.relationship_search,
                             search_type: "relationship"
                         )
                         .navigationTitle("Characters:")
@@ -142,7 +142,7 @@ struct SearchQueryView: View {
                     NavigationLink("Additional Tags: (\(search_query.freeform_tags.count))") {
                         TagSearch(
                             selected_tags: $search_query.freeform_tags,
-                            search_text: $search_query.freeform_search,
+                            // search_text: $search_query.freeform_search,
                             search_type: "freeform"
                         )
                         .navigationTitle("Additional Tags:")
