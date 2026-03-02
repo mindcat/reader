@@ -1,0 +1,12 @@
+//
+//  project.xcconfig
+//  reader
+//
+//  Created by koteczek on 2/27/26.
+//
+
+// App Settings
+
+//BUNDLE_IDENTIFIER = mew.koteczek.Reader
+PRODUCT_BUNDLE_IDENTIFIER = mew.koteczek.Reader
+DEVELOPMENT_TEAM = Matthew Elijah Wangeman
