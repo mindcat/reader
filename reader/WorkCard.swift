@@ -47,6 +47,40 @@ struct WorkCard: View {
         } else {
             VStack {
                 HStack {
+                    VStack(alignment: .leading) {
+                        if !work_stub.is_restricted {
+                            Text(work_stub.title)
+                                .font(.title3)
+                                .fixedSize(horizontal: false, vertical: true)
+                        } else {
+                            (
+                                Text(work_stub.title)
+                                    .font(.title3)
+                                +
+                                Text(" \(Image(systemName: "lock.fill"))")
+                                    .font(.subheadline)
+                                    .baselineOffset(2)
+                            )
+                            .fixedSize(horizontal: false, vertical: true)
+                        }
+                        Text(work_stub.author).italic()
+                    }
+                    
+                    Spacer()
+                    
+                    VStack(alignment: .trailing) {
+                        Label(work_stub.stats.words, systemImage: "text.word.spacing")
+                            .font(.caption).labelStyle(InvLabel())
+                        Label(work_stub.stats.chapters, systemImage: "paragraphsign")
+                            .font(.caption).labelStyle(InvLabel())
+                        Label {
+                            Text(work_stub.stats.kudos)
+                        } icon: {
+                            Image(systemName: "heart.fill").foregroundStyle( (Double(work_stub.stats.kudos.replacingOccurrences(of: ",", with: "")) ?? 0) > 1000 ? .pink : .primary)
+                        }
+                        .font(.caption).labelStyle(InvLabel())
+                    }
+                    
                     VStack {
                         switch work_stub.rating {
                             case "Explicit": Image(systemName: "e.square.fill").foregroundStyle(.red)
@@ -84,42 +118,18 @@ struct WorkCard: View {
                             }
                         }
                     }
-                    
-                    VStack(alignment: .leading) {
-                        if !work_stub.is_restricted {
-                            Text(work_stub.title)
-                                .font(.title3)
-                                .fixedSize(horizontal: false, vertical: true)
-                        } else {
-                            (
-                                Text(work_stub.title)
-                                    .font(.title3)
-                                +
-                                Text(" \(Image(systemName: "lock.fill"))")
-                                    .font(.subheadline)
-                                    .baselineOffset(2)
-                            )
-                            .fixedSize(horizontal: false, vertical: true)
-                        }
-                        Text(work_stub.author).italic()
-                    }
-                    
-                    Spacer()
-                    
-                    VStack(alignment: .trailing) {
-                        Label(work_stub.stats.words, systemImage: "character")
-                            .font(.caption)
-                        Label(work_stub.stats.chapters, systemImage: "text.word.spacing")
-                            .font(.caption)
-                        Label {
-                            Text(work_stub.stats.kudos)
-                        } icon: {
-                            Image(systemName: "heart.fill").foregroundStyle(.pink)
-                        }
-                        .font(.caption)
-                    }
                 }
             }
         }
     }
+    
+    struct InvLabel: LabelStyle {
+        func makeBody(configuration: Configuration) -> some View {
+            HStack {
+                configuration.title
+                configuration.icon
+            }
+        }
+    }
+
 }
